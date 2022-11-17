@@ -62,7 +62,7 @@ function App() {
       title: 'Account Name',
       dataIndex: 'name',
       key: 'name',
-      render: (text) => <a>{text}</a>,
+      render: (value , record) => (<a>[{record.key}] {value}</a>),
     },
     {
       title: 'Action',
