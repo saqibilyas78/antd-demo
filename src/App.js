@@ -3,7 +3,8 @@ import { Space, Table, Button, Modal ,Checkbox, Form, Input, Select, Switch} fro
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { add } from './account'
-  
+import { CaretDownOutlined, CaretRightOutlined } from "@ant-design/icons";
+
 function App() {
 
   const dispatch = useDispatch();
@@ -158,7 +159,21 @@ function App() {
   return (
     <div className="App">
         <Button type="primary" onClick={() => showModal(0)} style={btnStyle}>Add Account</Button>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={accounts} />
+        <Table expandable={{
+      rowExpandable: (record) => record.name !== 'Not Expandable',
+      expandIcon: ({ expanded, onExpand, record }) =>
+        expanded ? (
+          <CaretDownOutlined
+            style={{ fontSize: '20px' }}
+            onClick={(e) => onExpand(record, e)}
+          />
+        ) : (
+          <CaretRightOutlined
+            style={{ fontSize: '20px' }}
+            onClick={(e) => onExpand(record, e)}
+          />
+        ),
+    }} rowSelection={rowSelection} columns={columns} dataSource={accounts} />
 
         <Modal title="Add Account" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <Form form={form} name="dynamic_rule">
